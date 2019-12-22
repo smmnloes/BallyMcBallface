@@ -133,11 +133,9 @@ public class UIControl : MonoBehaviour
         else
         {
             musicSource.enabled = false;
-
             PlayAudio(gameOverSound, gameSoundsSource);
-            Time.timeScale = 0f; //Game over
+            Time.timeScale = 0f; 
             bigAnnounceDisplay.text = "GAME OVER";
-
             restartButton.SetActive(true);
         }
     }
@@ -169,10 +167,9 @@ public class UIControl : MonoBehaviour
     IEnumerator RestartFromLastCheckpoint()
     {
         yield return new WaitForSecondsRealtime(1);
-
-        var ballRigid = Globals.ball.GetComponent<Rigidbody2D>();
-        ballRigid.angularVelocity = 0; //Reset Ball's movement
-        ballRigid.velocity = new Vector3(0, 0, 0);
+        
+        Globals.ballRigid.angularVelocity = 0; //Reset Ball's movement
+        Globals.ballRigid.velocity = new Vector3(0, 0, 0);
 
         Globals.ball.transform.position =
             _checkpointParent.transform.GetChild(currentCheckpoint).position; //Move to current Checkpoint
