@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static I18N.Identifier;
 
 public class UIControl : MonoBehaviour
 {
@@ -98,13 +99,14 @@ public class UIControl : MonoBehaviour
 
 
     public void LevelCompleted()
-    {    
+    {
         ChangeScore(LevelCompletedBonusScore);
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
         {
             //Last level?
-            bigAnnounceDisplay.text = "CONGRATULATIONS!\n\nGAME COMPLETED!\n\nSCORE: " +
-                                      PlayerStats.instance.currentPlayerScore;
+            bigAnnounceDisplay.text =
+                $"{I18N.Translate(CONGRATULATIONS)}\n\n{I18N.Translate(GAME_COMPLETED)}\n\n" +
+                $"{I18N.Translate(SCORE)}: {PlayerStats.instance.currentPlayerScore}";
         }
         else
         {
@@ -114,7 +116,10 @@ public class UIControl : MonoBehaviour
                 PlayerStats.instance.players[_currentPlayer] = SceneManager.GetActiveScene().buildIndex + 1;
             }
 
-            bigAnnounceDisplay.text = "LEVEL COMPLETED\n\nSCORE: " + PlayerStats.instance.currentPlayerScore;
+            bigAnnounceDisplay.text =
+                $"{I18N.Translate(LEVEL_COMPLETED)}" +
+                $"\n\n{I18N.Translate(SCORE)}: {PlayerStats.instance.currentPlayerScore}";
+
             nextLevelButton.SetActive(true);
         }
 
@@ -139,7 +144,7 @@ public class UIControl : MonoBehaviour
         {
             PlayAudio(deathSound, gameSoundsSource);
             Time.timeScale = 0.2f;
-            StartCoroutine(DisplayText("OUCH", 1));
+            StartCoroutine(DisplayText(I18N.Translate(OUCH), 1));
             StartCoroutine(RestartFromLastCheckpoint());
         }
         else
@@ -147,7 +152,7 @@ public class UIControl : MonoBehaviour
             musicSource.enabled = false;
             PlayAudio(gameOverSound, gameSoundsSource);
             Time.timeScale = 0f;
-            bigAnnounceDisplay.text = "GAME OVER";
+            bigAnnounceDisplay.text = I18N.Translate(GAME_OVER);
             restartButton.SetActive(true);
         }
     }

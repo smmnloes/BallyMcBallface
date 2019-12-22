@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using UnityEngine;
 
 
@@ -10,6 +12,8 @@ public class Globals : MonoBehaviour
     public static LayerMask groundMask;
     public static LayerMask waterMask;
     public static LayerMask staticMask;
+
+   
 
     void Start()
     {

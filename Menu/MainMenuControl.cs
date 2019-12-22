@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.IO;
+using UnityEngine.UI;
+using static I18N.Identifier;
 
 public class MainMenuControl : MonoBehaviour
 {
@@ -61,7 +60,7 @@ public class MainMenuControl : MonoBehaviour
     public void Quit()
     {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+        EditorApplication.isPlaying = false;
 
 #else
 		Application.Quit();
@@ -101,10 +100,10 @@ public class MainMenuControl : MonoBehaviour
         if (currentPlayerView != null)
         {
             //show current player and selected level
-            if (currentplayer == "" || currentplayer == null)
-                currentPlayerView.text = "PLEASE SELECT PLAYER";
+            if (string.IsNullOrEmpty(currentplayer))
+                currentPlayerView.text = I18N.Translate(CHOOSE_PLAYER_FIRST);
             else
-                currentPlayerView.text = "PLAYER: " + currentplayer + "\nLEVEL: " + selectedLevel;
+                currentPlayerView.text = $"{I18N.Translate(PLAYER)}: {currentplayer}\nLEVEL: {selectedLevel}";
         }
     }
 
@@ -118,14 +117,14 @@ public class MainMenuControl : MonoBehaviour
             int levelReached = PlayerStats.instance.players[currentplayer];
             for (int i = 1; i <= levelReached; i++)
             {
-                levelDropdown.options.Add(new Dropdown.OptionData() {text = "LEVEL " + (i)});
+                levelDropdown.options.Add(new Dropdown.OptionData() {text = "LEVEL " + i});
             }
 
             levelDropdown.RefreshShownValue();
         }
         else
         {
-            levelDropdown.options.Add(new Dropdown.OptionData() {text = "CHOOSE PLAYER FIRST!"}); //no player chosen
+            levelDropdown.options.Add(new Dropdown.OptionData() {text = I18N.Translate(CHOOSE_PLAYER_FIRST)});
             levelDropdown.RefreshShownValue();
         }
 

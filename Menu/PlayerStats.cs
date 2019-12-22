@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -17,6 +18,17 @@ public class PlayerStats : MonoBehaviour
 
     private const int PlayerStartLives = 3;
     private const string SaveGameFileName = "/playerinfo.dat";
+
+    public SystemLanguage systemLanguage;
+
+    private static readonly SystemLanguage[] SupportedLanguages =
+    {
+        SystemLanguage.German,
+        SystemLanguage.English
+    };
+
+    private static SystemLanguage defaultLanguage = SystemLanguage.English;
+
     void Awake()
     {
         if (instance == null)
@@ -28,8 +40,12 @@ public class PlayerStats : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         currentPlayerLives = PlayerStartLives;
-        Load(); 
+        Load();
+        systemLanguage = SupportedLanguages.Contains(Application.systemLanguage)
+            ? Application.systemLanguage
+            : defaultLanguage;
     }
 
 
