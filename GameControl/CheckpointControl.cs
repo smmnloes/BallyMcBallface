@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class checkpoint_control : MonoBehaviour {
+public class CheckpointControl : MonoBehaviour {
 	public int index;
 	public ParticleSystem particles;
 
