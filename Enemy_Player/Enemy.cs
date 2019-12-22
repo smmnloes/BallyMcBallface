@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
             if (cPointY - positionY > colliderHalfHeight * 0.5 && killable)
             {
                 //Hit from Top
-                if (cPointCollider.gameObject != Globals.ball || Globals.playerControl.isDead) continue;
+                if (Globals.playerControl.isDead) continue;
 
                 //Hit by Player
                 Death();
