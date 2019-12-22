@@ -23,7 +23,7 @@ public class MainMenuControl : MonoBehaviour
 
     void Update()
     {
-        currentplayer = PlayerStats.playerData.currentPlayer; //Get current player from PlayerStats and refresh display
+        currentplayer = PlayerStats.instance.currentPlayer; //Get current player from PlayerStats and refresh display
         showCurrentPlayerLevel();
     }
 
@@ -41,7 +41,7 @@ public class MainMenuControl : MonoBehaviour
             playerDropdown.RefreshShownValue();
             playerDropdown.value = playerDropdown.options.Capacity; //show next in list
 
-            PlayerStats.playerData.players.Remove(playertodelete);
+            PlayerStats.instance.players.Remove(playertodelete);
             selectedLevel = 1; //delete from Dictionary
         }
     }
@@ -52,8 +52,8 @@ public class MainMenuControl : MonoBehaviour
         //Start-Button
         if (currentplayer != "")
         {
-            PlayerStats.playerData.currentPlayerLives = 3;
-            PlayerStats.playerData.currentPlayerScore = 0;
+            PlayerStats.instance.currentPlayerLives = 3;
+            PlayerStats.instance.currentPlayerScore = 0;
             SceneManager.LoadScene(selectedLevel);
         }
     }
@@ -71,9 +71,9 @@ public class MainMenuControl : MonoBehaviour
 
     public void addPlayer()
     {
-        if (playerInputField.text != "" && !PlayerStats.playerData.players.ContainsKey(playerInputField.text.ToUpper()))
+        if (playerInputField.text != "" && !PlayerStats.instance.players.ContainsKey(playerInputField.text.ToUpper()))
         {
-            PlayerStats.playerData.players.Add(playerInputField.text.ToUpper(), 1);
+            PlayerStats.instance.players.Add(playerInputField.text.ToUpper(), 1);
         } //add player to Dictionary
 
         selectedLevel = 1;
@@ -91,7 +91,7 @@ public class MainMenuControl : MonoBehaviour
             currentplayer = "";
         }
 
-        PlayerStats.playerData.currentPlayer = currentplayer;
+        PlayerStats.instance.currentPlayer = currentplayer;
         selectedLevel = 1; //Update PlayerStats
     }
 
@@ -115,7 +115,7 @@ public class MainMenuControl : MonoBehaviour
         if (currentplayer != "")
         {
             //add possible levels for player to dropdown
-            int levelReached = PlayerStats.playerData.players[currentplayer];
+            int levelReached = PlayerStats.instance.players[currentplayer];
             for (int i = 1; i <= levelReached; i++)
             {
                 levelDropdown.options.Add(new Dropdown.OptionData() {text = "LEVEL " + (i)});
@@ -136,7 +136,7 @@ public class MainMenuControl : MonoBehaviour
     {
         playerDropdown.ClearOptions();
 
-        foreach (string currentKey in PlayerStats.playerData.players.Keys)
+        foreach (string currentKey in PlayerStats.instance.players.Keys)
         {
             //get all players from Dictionary and put in dropdown
             playerDropdown.options.Add(new Dropdown.OptionData() {text = currentKey});

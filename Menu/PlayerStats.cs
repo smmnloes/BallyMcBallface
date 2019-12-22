@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public static PlayerStats playerData; //static reference to self
+    public static PlayerStats instance; //static reference to self
 
     public Dictionary<string, int> players;
 
@@ -19,12 +19,12 @@ public class PlayerStats : MonoBehaviour
     
     void Awake()
     {
-        if (playerData == null)
+        if (instance == null)
         {
             DontDestroyOnLoad(gameObject);
-            playerData = this;
+            instance = this;
         }
-        else if (playerData != this)
+        else if (instance != this)
         {
             Destroy(gameObject);
         }

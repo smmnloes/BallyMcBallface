@@ -48,7 +48,7 @@ public class UIControl : MonoBehaviour
 
         currentCheckpoint = 0;
 
-        _currentPlayer = PlayerStats.playerData.currentPlayer;
+        _currentPlayer = PlayerStats.instance.currentPlayer;
 
         currentPlayerDisplay.text = _currentPlayer;
         StartCoroutine(DisplayText(SceneManager.GetActiveScene().name.ToUpper(), 3));
@@ -85,8 +85,8 @@ public class UIControl : MonoBehaviour
         }
 
         //Display score & lives
-        scoreDisplay.text = PlayerStats.playerData.currentPlayerScore.ToString();
-        livesDisplay.text = PlayerStats.playerData.currentPlayerLives.ToString();
+        scoreDisplay.text = PlayerStats.instance.currentPlayerScore.ToString();
+        livesDisplay.text = PlayerStats.instance.currentPlayerLives.ToString();
     }
 
     public void RestartLevel()
@@ -104,17 +104,17 @@ public class UIControl : MonoBehaviour
         {
             //Last level?
             bigAnnounceDisplay.text = "CONGRATULATIONS!\n\nGAME COMPLETED!\n\nSCORE: " +
-                                      PlayerStats.playerData.currentPlayerScore;
+                                      PlayerStats.instance.currentPlayerScore;
         }
         else
         {
-            if (PlayerStats.playerData.players[_currentPlayer] <= SceneManager.GetActiveScene().buildIndex + 1)
+            if (PlayerStats.instance.players[_currentPlayer] <= SceneManager.GetActiveScene().buildIndex + 1)
             {
                 //update max. Level in PlayerStats
-                PlayerStats.playerData.players[_currentPlayer] = SceneManager.GetActiveScene().buildIndex + 1;
+                PlayerStats.instance.players[_currentPlayer] = SceneManager.GetActiveScene().buildIndex + 1;
             }
 
-            bigAnnounceDisplay.text = "LEVEL COMPLETED\n\nSCORE: " + PlayerStats.playerData.currentPlayerScore;
+            bigAnnounceDisplay.text = "LEVEL COMPLETED\n\nSCORE: " + PlayerStats.instance.currentPlayerScore;
             nextLevelButton.SetActive(true);
         }
 
@@ -135,7 +135,7 @@ public class UIControl : MonoBehaviour
     {
         ChangeLives(-1);
 
-        if (PlayerStats.playerData.currentPlayerLives > 0)
+        if (PlayerStats.instance.currentPlayerLives > 0)
         {
             PlayAudio(deathSound, gameSoundsSource);
             Time.timeScale = 0.2f;
@@ -156,10 +156,10 @@ public class UIControl : MonoBehaviour
     public void ChangeScore(int delta)
     {
         PlayAudio(scoreSound, gameSoundsSource);
-        PlayerStats.playerData.currentPlayerScore += delta;
-        if (PlayerStats.playerData.currentPlayerScore < 0)
+        PlayerStats.instance.currentPlayerScore += delta;
+        if (PlayerStats.instance.currentPlayerScore < 0)
         {
-            PlayerStats.playerData.currentPlayerScore = 0;
+            PlayerStats.instance.currentPlayerScore = 0;
         }
 
         scoreParticles.Emit(20);
@@ -170,11 +170,11 @@ public class UIControl : MonoBehaviour
     {
         if (absolute)
         {
-            PlayerStats.playerData.currentPlayerLives = toChange;
+            PlayerStats.instance.currentPlayerLives = toChange;
         }
         else
         {
-            PlayerStats.playerData.currentPlayerLives += toChange;
+            PlayerStats.instance.currentPlayerLives += toChange;
 
             if (toChange > 0)
                 PlayAudio(extraLifeSound, gameSoundsSource);
