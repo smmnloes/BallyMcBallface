@@ -6,34 +6,31 @@ public class checkpoint_control : MonoBehaviour {
 	public int index;
 	public ParticleSystem particles;
 
-	bool reached;
+	private bool _reached;
 
-	UIControl uicontrol;
-	Animator animator;
-	AudioSource audiosource;
+	private Animator _animator;
+	private AudioSource _audiosource;
+	private static readonly int Reached = Animator.StringToHash("reached");
 
 
 	void Start () {
-		
-		uicontrol = GameObject.Find ("UIControl_Gamestats").GetComponent<UIControl> ();
-		animator = GetComponent<Animator> ();
-		audiosource = GetComponent<AudioSource> ();
-
+		_animator = GetComponent<Animator> ();
+		_audiosource = GetComponent<AudioSource> ();
 	}
 
 		
-	void OnTriggerEnter2D (Collider2D collider) {
+	void OnTriggerEnter2D (Collider2D col) {
 		
-		if (collider.name == "Ball" &&!reached) {
+		if (col.name == "Ball" &&!_reached) {
 			
-				reached = true;
+				_reached = true;
 				particles.Emit (70);
-				audiosource.Play ();
+				_audiosource.Play ();
 
-			animator.SetBool ("reached", true);
+			_animator.SetBool (Reached, true);
 
-			if (uicontrol.currentCheckpoint < index) {
-				uicontrol.currentCheckpoint = index;
+			if (Globals.uiStats.currentCheckpoint < index) {
+				Globals.uiStats.currentCheckpoint = index;
 			}
 
 		}
