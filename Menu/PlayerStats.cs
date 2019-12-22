@@ -15,11 +15,12 @@ public class PlayerStats : MonoBehaviour
     public int currentPlayerScore;
     public int currentPlayerLives;
 
+    private const int PlayerStartLives = 3;
+    
     void Awake()
     {
         if (playerData == null)
         {
-            currentPlayerLives = 3;
             DontDestroyOnLoad(gameObject);
             playerData = this;
         }
@@ -27,7 +28,7 @@ public class PlayerStats : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        currentPlayerLives = PlayerStartLives;
         Load(); 
     }
 
