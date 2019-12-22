@@ -34,6 +34,9 @@ public class UIControl : MonoBehaviour
 
     private GameObject[] _toReset;
 
+    private const int LevelRestartPenalty = -50;
+    private const int LevelRestartLives = 3;
+    private const int LevelCompletedBonusScore = 100;
 
     void Start()
     {
@@ -60,37 +63,48 @@ public class UIControl : MonoBehaviour
             SceneManager.LoadScene(0);
         }
 
+        // DEBUG INPUT
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            ChangeScore(100);
+        }
 
-        if (Input.GetKeyDown(KeyCode.S)) //DEBUG
-            IncreaseScore(1);
-
-        if (Input.GetKey(KeyCode.Space)) RestartScene();
+        if (Input.GetKey(KeyCode.Space))
+        {
+            RestartLevel();
+        }
 
         if (Input.GetKeyDown(KeyCode.L))
+        {
             ChangeLives(1);
+        }
 
         if (Input.GetKeyDown(KeyCode.X))
+        {
             LevelCompleted();
-        //DEBUG
+        }
 
-
-        scoreDisplay.text = PlayerStats.playerData.currentPlayerScore.ToString(); //Display score & lives
+        //Display score & lives
+        scoreDisplay.text = PlayerStats.playerData.currentPlayerScore.ToString();
         livesDisplay.text = PlayerStats.playerData.currentPlayerLives.ToString();
     }
 
-
-    public void RestartScene()
+    public void RestartLevel()
     {
+        ChangeScore(LevelRestartPenalty);
+        ChangeLives(LevelRestartLives, true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 
     public void LevelCompleted()
-    {
+    {    
+        ChangeScore(LevelCompletedBonusScore);
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
         {
             //Last level?
-            bigAnnounceDisplay.text = "CONGRATULATIONS!\n\nGAME COMPLETED!";
+            bigAnnounceDisplay.text = "CONGRATULATIONS!\n\nGAME COMPLETED!\n\nSCORE: " +
+                                      PlayerStats.playerData.currentPlayerScore;
         }
         else
         {
@@ -113,8 +127,6 @@ public class UIControl : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        //called by nextLevelButton
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
@@ -128,46 +140,58 @@ public class UIControl : MonoBehaviour
             PlayAudio(deathSound, gameSoundsSource);
             Time.timeScale = 0.2f;
             StartCoroutine(DisplayText("OUCH", 1));
-            StartCoroutine(RestartFromLastCheckpoint()); //Move to Checkpoint
+            StartCoroutine(RestartFromLastCheckpoint());
         }
         else
         {
             musicSource.enabled = false;
             PlayAudio(gameOverSound, gameSoundsSource);
-            Time.timeScale = 0f; 
+            Time.timeScale = 0f;
             bigAnnounceDisplay.text = "GAME OVER";
             restartButton.SetActive(true);
         }
     }
 
 
-    public void IncreaseScore(int toIncrease)
+    public void ChangeScore(int delta)
     {
         PlayAudio(scoreSound, gameSoundsSource);
-        PlayerStats.playerData.currentPlayerScore += toIncrease;
+        PlayerStats.playerData.currentPlayerScore += delta;
+        if (PlayerStats.playerData.currentPlayerScore < 0)
+        {
+            PlayerStats.playerData.currentPlayerScore = 0;
+        }
+
         scoreParticles.Emit(20);
     }
 
 
-    public void ChangeLives(int toChange)
+    public void ChangeLives(int toChange, bool absolute = false)
     {
-        PlayerStats.playerData.currentPlayerLives += toChange;
+        if (absolute)
+        {
+            PlayerStats.playerData.currentPlayerLives = toChange;
+        }
+        else
+        {
+            PlayerStats.playerData.currentPlayerLives += toChange;
 
-        if (toChange > 0)
-            PlayAudio(extraLifeSound, gameSoundsSource);
+            if (toChange > 0)
+                PlayAudio(extraLifeSound, gameSoundsSource);
 
-        var particlesMain = livesParticles.main;
+            var particlesMain = livesParticles.main;
 
-        particlesMain.gravityModifier = toChange < 0 ? 3 : 0;
+            particlesMain.gravityModifier = toChange < 0 ? 3 : 0;
 
-        livesParticles.Emit(20);
+            livesParticles.Emit(20);
+        }
     }
 
 
     IEnumerator RestartFromLastCheckpoint()
     {
         yield return new WaitForSecondsRealtime(1);
-        
+
         Globals.ballRigid.angularVelocity = 0; //Reset Ball's movement
         Globals.ballRigid.velocity = new Vector3(0, 0, 0);
 

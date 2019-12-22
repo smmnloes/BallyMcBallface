@@ -12,7 +12,7 @@ public class EnemyWalking : Enemy
 
     protected override void Death()
     {
-        Globals.uiStats.IncreaseScore(10);
+        Globals.uiStats.ChangeScore(10);
         isDead = true;
         rigid.velocity = new Vector2(0, 0);
         rigid.isKinematic = true;

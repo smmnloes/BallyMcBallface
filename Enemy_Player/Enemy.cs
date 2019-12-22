@@ -47,14 +47,14 @@ public class Enemy : MonoBehaviour
             {
                 //Hit from Top
                 if (Globals.playerControl.isDead) continue;
-
-                //Hit by Player
+                
                 Death();
                 cPointCollider.attachedRigidbody.AddForce(new Vector2(0,
                     upForceWhenHit)); //Apply upforce to player
             }
             else
             {
+                // Hit from side
                 var colliderHalfWidth = GetComponent<Collider2D>().bounds.size.x / 2;
                 var cPointX = cPoint.point.x;
                 var positionX = transform.position.x;

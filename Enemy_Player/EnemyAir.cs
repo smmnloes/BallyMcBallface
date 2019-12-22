@@ -4,7 +4,7 @@ public class EnemyAir : Enemy
 {
     protected override void Death()
     {
-        Globals.uiStats.IncreaseScore(20);
+        Globals.uiStats.ChangeScore(20);
         isDead = true;
         rigid.freezeRotation = false;
         rigid.angularVelocity = 360;
