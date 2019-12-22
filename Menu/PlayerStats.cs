@@ -16,7 +16,7 @@ public class PlayerStats : MonoBehaviour
     public int currentPlayerLives;
 
     private const int PlayerStartLives = 3;
-    
+    private const string SaveGameFileName = "/playerinfo.dat";
     void Awake()
     {
         if (instance == null)
@@ -48,7 +48,7 @@ public class PlayerStats : MonoBehaviour
     private void Save()
     {
         var bf = new BinaryFormatter();
-        var file = File.Create(Application.persistentDataPath + "/playerinfo.dat");
+        var file = File.Create(Application.persistentDataPath + SaveGameFileName);
 
         var pdv = new PlayerDataValues {players = players, currentPlayer = currentPlayer};
 
@@ -58,10 +58,10 @@ public class PlayerStats : MonoBehaviour
 
     private void Load()
     {
-        if (File.Exists(Application.persistentDataPath + "/playerinfo.dat"))
+        if (File.Exists(Application.persistentDataPath + SaveGameFileName))
         {
             var bf = new BinaryFormatter();
-            var file = File.Open(Application.persistentDataPath + "/playerinfo.dat", FileMode.Open);
+            var file = File.Open(Application.persistentDataPath + SaveGameFileName, FileMode.Open);
 
             var pdv = (PlayerDataValues) bf.Deserialize(file);
 
