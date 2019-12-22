@@ -40,7 +40,7 @@ public class chainControl : MonoBehaviour {
 			
 			} else {
 			
-				playerControl.attach (transform);
+				playerControl.Attach (transform);
 
 			}
 		
