@@ -14,7 +14,12 @@ public static class I18N
         SCORE,
         LEVEL_COMPLETED,
         OUCH,
-        GAME_OVER
+        GAME_OVER,
+        SELECT_PLAYER,
+        SELECT_LEVEL,
+        QUIT_GAME,
+        NEW_PLAYER,
+        DELETE_PLAYER
         
     }
 
@@ -32,13 +37,18 @@ public static class I18N
                 {
                     {START_GAME, "SPIEL STARTEN"},
                     {PLAYER, "SPIELER"},
-                    {CHOOSE_PLAYER_FIRST, "ERST SPIELER AUSWAEHLEN"},
+                    {CHOOSE_PLAYER_FIRST, "ERST SPIELER WAEHLEN"},
                     {CONGRATULATIONS, "GLUECKWUNSCH"},
                     {GAME_COMPLETED, "SPIEL ABGESCHLOSSEN"},
                     {SCORE, "PUNKTE"},
                     {LEVEL_COMPLETED, "LEVEL ABGESCHLOSSEN"},
                     {OUCH, "AUA"},
-                    {GAME_OVER, "SPIEL VORBEI"}
+                    {GAME_OVER, "SPIEL VORBEI"},
+                    {SELECT_PLAYER, "SPIELER WAEHLEN"},
+                    {SELECT_LEVEL, "LEVEL WAEHLEN"},
+                    {QUIT_GAME, "SPIEL BEENDEN"},
+                    {NEW_PLAYER, "NEUER SPIELER"},
+                    {DELETE_PLAYER, "SPIELER LOESCHEN"}
                 }
             }
         };
