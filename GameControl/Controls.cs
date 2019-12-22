@@ -23,7 +23,7 @@ public class Controls : MonoBehaviour
 
         // DEBUG
         if (Input.GetKey(KeyCode.K))
-            Globals.playerControl.Kill();
+            Globals.playerControl.Death();
 
 #endif
 

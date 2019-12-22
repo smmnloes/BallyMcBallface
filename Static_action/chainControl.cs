@@ -36,7 +36,7 @@ public class chainControl : MonoBehaviour {
 		if (collider.gameObject == playerObject) {	
 			if (deadly) {
 
-				playerControl.Kill ();
+				playerControl.Death ();
 			
 			} else {
 			

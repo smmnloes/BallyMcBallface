@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour
 
                 if (cPointCollider.gameObject == Globals.ball)
                     //Kill Player
-                    Globals.playerControl.Kill();
+                    Globals.playerControl.Death();
             }
         }
     }
