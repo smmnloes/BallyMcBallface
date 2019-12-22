@@ -28,8 +28,6 @@ public class FanUp: MonoBehaviour {
 
 			if (distanceToFan < maxDistance)
 				hit.collider.attachedRigidbody.AddForce(forceToApply);		//Push object away
-
-			//print("Force: " + forceToApply);
 		}
 	}
 }	
