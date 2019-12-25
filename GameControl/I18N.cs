@@ -19,8 +19,8 @@ public static class I18N
         SELECT_LEVEL,
         QUIT_GAME,
         NEW_PLAYER,
-        DELETE_PLAYER
-        
+        DELETE_PLAYER,
+        BACK
     }
 
     public static string Translate(Identifier identifier)
@@ -48,7 +48,29 @@ public static class I18N
                     {SELECT_LEVEL, "LEVEL WAEHLEN"},
                     {QUIT_GAME, "SPIEL BEENDEN"},
                     {NEW_PLAYER, "NEUER SPIELER"},
-                    {DELETE_PLAYER, "SPIELER LOESCHEN"}
+                    {DELETE_PLAYER, "SPIELER LOESCHEN"},
+                    {BACK, "ZURUECK"}
+                }
+            },
+            {
+                SystemLanguage.English,
+                new Dictionary<Identifier, string>()
+                {
+                    {START_GAME, "START GAME"},
+                    {PLAYER, "PLAYER"},
+                    {CHOOSE_PLAYER_FIRST, "CHOOSE PLAYER FIRST"},
+                    {CONGRATULATIONS, "CONGRATULATIONS"},
+                    {GAME_COMPLETED, "GAME COMPLETED"},
+                    {SCORE, "SCORE"},
+                    {LEVEL_COMPLETED, "LEVEL COMPLETED"},
+                    {OUCH, "OUCH"},
+                    {GAME_OVER, "GAME OVER"},
+                    {SELECT_PLAYER, "SELECT PLAYER"},
+                    {SELECT_LEVEL, "SELECT LEVEL"},
+                    {QUIT_GAME, "QUIT GAME"},
+                    {NEW_PLAYER, "NEW PLAYER"},
+                    {DELETE_PLAYER, "DELETE PLAYER"},
+                    {BACK, "BACK"}
                 }
             }
         };

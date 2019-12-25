@@ -43,9 +43,15 @@ public class MainMenuControl : MonoBehaviour
         GameObject.Find("StartGameButtonText").GetComponent<Text>().text = I18N.Translate(START_GAME);
         GameObject.Find("SelectPlayerButtonText").GetComponent<Text>().text = I18N.Translate(SELECT_PLAYER);
         GameObject.Find("SelectLevelButtonText").GetComponent<Text>().text = I18N.Translate(SELECT_LEVEL);
-        GameObject.Find("QuitButtonText").GetComponent<Text>().text = I18N.Translate(QUIT_GAME);
         GameObject.Find("NewPlayerButtonText").GetComponent<Text>().text = I18N.Translate(NEW_PLAYER);
         GameObject.Find("DeletePlayerButtonText").GetComponent<Text>().text = I18N.Translate(DELETE_PLAYER);
+        GameObject.Find("InputPlayerBackButtonText").GetComponent<Text>().text = I18N.Translate(BACK);
+        
+           var quitButton = GameObject.Find("QuitButtonText");
+        if (quitButton != null)
+        {
+            quitButton.GetComponent<Text>().text = I18N.Translate(QUIT_GAME);
+        }
     }
 
     void Update()
