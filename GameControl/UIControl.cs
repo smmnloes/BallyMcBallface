@@ -58,12 +58,7 @@ public class UIControl : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            //Go to menu on Key
-            SceneManager.LoadScene(0);
-        }
-
+        
         // DEBUG INPUT
         if (Input.GetKeyDown(KeyCode.S))
         {

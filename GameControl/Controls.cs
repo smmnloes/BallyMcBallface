@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class Controls : MonoBehaviour
@@ -21,6 +22,11 @@ public class Controls : MonoBehaviour
         if (Input.GetKey(StandaloneJumpControl))
             Globals.playerControl.Jump();
 
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            //Go to menu on Key
+            SceneManager.LoadScene(0);
+        }
         // DEBUG
         if (Input.GetKey(KeyCode.K))
             Globals.playerControl.Death();
