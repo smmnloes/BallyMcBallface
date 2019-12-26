@@ -40,7 +40,7 @@ public static class I18N
                 {
                     {START_GAME, "Spiel starten"},
                     {PLAYER, "Spieler"},
-                    {CHOOSE_PLAYER_FIRST, "Erst Spieler wählen"},
+                    {CHOOSE_PLAYER_FIRST, "Spieler wählen"},
                     {CONGRATULATIONS, "Glückwunsch"},
                     {GAME_COMPLETED, "Spiel abgeschlossen"},
                     {SCORE, "Punkte"},
