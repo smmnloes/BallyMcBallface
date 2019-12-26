@@ -65,36 +65,37 @@ public class PlayerStats : MonoBehaviour
         currentPlayerLives = PlayerStartLives;
         currentPlayerScore = 0;
     }
-    
+
     private void Save()
     {
         var bf = new BinaryFormatter();
-        var file = File.Create(Application.persistentDataPath + SaveGameFileName);
-
-        var pdv = new PlayerDataValues {players = players, currentPlayer = currentPlayer};
-
-        bf.Serialize(file, pdv);
-        file.Close();
+        using (var file = File.Create(Application.persistentDataPath + SaveGameFileName))
+        {
+            var pdv = new PlayerDataValues {players = players, currentPlayer = currentPlayer};
+            bf.Serialize(file, pdv);
+        }
     }
 
     private void Load()
     {
         if (File.Exists(Application.persistentDataPath + SaveGameFileName))
+
         {
-            var bf = new BinaryFormatter();
-            var file = File.Open(Application.persistentDataPath + SaveGameFileName, FileMode.Open);
-
-            var pdv = (PlayerDataValues) bf.Deserialize(file);
-
-            if (pdv.players != null)
+            using (var file = File.Open(Application.persistentDataPath + SaveGameFileName, FileMode.Open))
             {
-                players = pdv.players;
-                currentPlayer = pdv.currentPlayer;
-            }
-            else
-            {
-                //if file not found or file contains null-object: Create new Dictionary
-                players = new Dictionary<string, int>();
+                var bf = new BinaryFormatter();
+                var pdv = (PlayerDataValues) bf.Deserialize(file);
+
+                if (pdv.players != null)
+                {
+                    players = pdv.players;
+                    currentPlayer = pdv.currentPlayer;
+                }
+                else
+                {
+                    //if file not found or file contains null-object: Create new Dictionary
+                    players = new Dictionary<string, int>();
+                }
             }
         }
         else
