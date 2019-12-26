@@ -114,6 +114,14 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    public void UpdateCurrentPlayerHighScore()
+    {
+        if (currentPlayer.highScore < currentPlayerScore)
+        {
+            currentPlayer.highScore = currentPlayerScore;
+        }
+    }
+
     public string GetCurrentPlayerName()
     {
         return currentPlayer == null ? "" : currentPlayer.name;

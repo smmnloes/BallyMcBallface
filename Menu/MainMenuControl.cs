@@ -18,8 +18,12 @@ public class MainMenuControl : MonoBehaviour
     private RectTransform _playerSelectPanel;
     private RectTransform _newPlayerPanel;
     private RectTransform _levelSelectPanel;
+    private RectTransform _highScoresPanel;
 
     private RectTransform[] _panels;
+
+    private Text _highScorePlayersText;
+    private Text _highScoreScoresText;
 
     void Start()
     {
@@ -31,10 +35,15 @@ public class MainMenuControl : MonoBehaviour
         _playerSelectPanel = GameObject.Find("PlayerSelectPanel").GetComponent<RectTransform>();
         _newPlayerPanel = GameObject.Find("NewPlayerPanel").GetComponent<RectTransform>();
         _levelSelectPanel = GameObject.Find("LevelSelectPanel").GetComponent<RectTransform>();
+        _highScoresPanel = GameObject.Find("HighscorePanel").GetComponent<RectTransform>();
+
+        _highScorePlayersText = GameObject.Find("HighScorePlayersText").GetComponent<Text>();
+        _highScoreScoresText = GameObject.Find("HighScoreScoresText").GetComponent<Text>();
+
 
         _panels = new[]
         {
-            _mainPanel, _levelSelectPanel, _newPlayerPanel, _playerSelectPanel
+            _mainPanel, _levelSelectPanel, _newPlayerPanel, _playerSelectPanel, _highScoresPanel
         };
 
         ShowPanel(_mainPanel);
@@ -47,6 +56,7 @@ public class MainMenuControl : MonoBehaviour
         GameObject.Find("DeletePlayerButtonText").GetComponent<Text>().text = I18N.Translate(DELETE_PLAYER);
         GameObject.Find("InputPlayerBackButtonText").GetComponent<Text>().text = I18N.Translate(BACK);
         GameObject.Find("InputPlayerFieldPlaceHolder").GetComponent<Text>().text = I18N.Translate(ENTER_NAME);
+        GameObject.Find("HighScoresBackButtonText").GetComponent<Text>().text = I18N.Translate(BACK);
 
         var quitButton = GameObject.Find("QuitButtonText");
         if (quitButton != null)
@@ -124,7 +134,7 @@ public class MainMenuControl : MonoBehaviour
     public void AddPlayerAndStartGame()
     {
         AddPlayer();
-        currentplayer = _playerInputField.text;
+        currentplayer = _truncateToSizeIfBigger(_playerInputField.text, 15);
         PlayerStats.instance.SetCurrentPlayer(currentplayer);
         StartGame();
     }
@@ -142,7 +152,7 @@ public class MainMenuControl : MonoBehaviour
 
     public void AddPlayer()
     {
-        PlayerStats.instance.AddPlayer(_playerInputField.text);
+        PlayerStats.instance.AddPlayer(_truncateToSizeIfBigger(_playerInputField.text, 15));
 
         selectedLevel = 1;
     }
@@ -163,6 +173,10 @@ public class MainMenuControl : MonoBehaviour
         selectedLevel = 1; //Update PlayerStats
     }
 
+    private static string _truncateToSizeIfBigger(string s, int size)
+    {
+        return s.Length > size ? s.Substring(0, size) : s;
+    }
 
     private void ShowCurrentPlayerLevel()
     {
@@ -217,5 +231,23 @@ public class MainMenuControl : MonoBehaviour
     {
         _levelDropdown.RefreshShownValue();
         selectedLevel = _levelDropdown.value + 1;
+    }
+
+    public void PopulateHighScoreBoard()
+    {
+        _highScorePlayersText.text = "";
+        _highScoreScoresText.text = "";
+
+        var players = PlayerStats.instance.players;
+        players.Sort((player1, player2) => player2.highScore.CompareTo(player1.highScore));
+
+        foreach (var player in players)
+        {
+            if (player.highScore > 0)
+            {
+                _highScorePlayersText.text += player.name + "\n";
+                _highScoreScoresText.text += player.highScore + "\n";
+            }
+        }
     }
 }

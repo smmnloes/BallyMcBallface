@@ -102,6 +102,7 @@ public class UIControl : MonoBehaviour
     public void LevelCompleted()
     {
         ChangeScore(LevelCompletedBonusScore);
+        PlayerStats.instance.UpdateCurrentPlayerHighScore();
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
         {
             //Last level?
