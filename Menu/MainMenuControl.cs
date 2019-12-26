@@ -46,8 +46,8 @@ public class MainMenuControl : MonoBehaviour
         GameObject.Find("NewPlayerButtonText").GetComponent<Text>().text = I18N.Translate(NEW_PLAYER);
         GameObject.Find("DeletePlayerButtonText").GetComponent<Text>().text = I18N.Translate(DELETE_PLAYER);
         GameObject.Find("InputPlayerBackButtonText").GetComponent<Text>().text = I18N.Translate(BACK);
-        
-           var quitButton = GameObject.Find("QuitButtonText");
+
+        var quitButton = GameObject.Find("QuitButtonText");
         if (quitButton != null)
         {
             quitButton.GetComponent<Text>().text = I18N.Translate(QUIT_GAME);
@@ -106,12 +106,26 @@ public class MainMenuControl : MonoBehaviour
     public void StartGame()
     {
         //Start-Button
-        if (currentplayer != "")
+        if (currentplayer == "")
+        {
+            ShowPanel(_newPlayerPanel);
+            GameObject.Find("InputPlayerOK").GetComponent<Button>().onClick.AddListener(AddPlayerAndStartGame);
+            hide(GameObject.Find("InputPlayerBack").GetComponent<RectTransform>());
+        }
+        else
         {
             PlayerStats.instance.currentPlayerLives = 3;
             PlayerStats.instance.currentPlayerScore = 0;
             SceneManager.LoadScene(selectedLevel);
         }
+    }
+
+    public void AddPlayerAndStartGame()
+    {
+        AddPlayer();
+        currentplayer = _playerInputField.text.ToUpper();
+        PlayerStats.instance.currentPlayer = currentplayer;
+        StartGame();
     }
 
     public void Quit()
