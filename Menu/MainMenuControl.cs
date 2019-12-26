@@ -46,6 +46,7 @@ public class MainMenuControl : MonoBehaviour
         GameObject.Find("NewPlayerButtonText").GetComponent<Text>().text = I18N.Translate(NEW_PLAYER);
         GameObject.Find("DeletePlayerButtonText").GetComponent<Text>().text = I18N.Translate(DELETE_PLAYER);
         GameObject.Find("InputPlayerBackButtonText").GetComponent<Text>().text = I18N.Translate(BACK);
+        GameObject.Find("InputPlayerFieldPlaceHolder").GetComponent<Text>().text = I18N.Translate(ENTER_NAME);
 
         var quitButton = GameObject.Find("QuitButtonText");
         if (quitButton != null)

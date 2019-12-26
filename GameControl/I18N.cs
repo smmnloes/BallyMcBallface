@@ -20,7 +20,8 @@ public static class I18N
         QUIT_GAME,
         NEW_PLAYER,
         DELETE_PLAYER,
-        BACK
+        BACK,
+        ENTER_NAME
     }
 
     public static string Translate(Identifier identifier)
@@ -49,7 +50,8 @@ public static class I18N
                     {QUIT_GAME, "SPIEL BEENDEN"},
                     {NEW_PLAYER, "NEUER SPIELER"},
                     {DELETE_PLAYER, "SPIELER LOESCHEN"},
-                    {BACK, "ZURUECK"}
+                    {BACK, "ZURUECK"},
+                    {ENTER_NAME, "NAMEN EINGEBEN"}
                 }
             },
             {
@@ -70,7 +72,8 @@ public static class I18N
                     {QUIT_GAME, "QUIT GAME"},
                     {NEW_PLAYER, "NEW PLAYER"},
                     {DELETE_PLAYER, "DELETE PLAYER"},
-                    {BACK, "BACK"}
+                    {BACK, "BACK"},
+                    {ENTER_NAME, "ENTER NAME"}
                 }
             }
         };
