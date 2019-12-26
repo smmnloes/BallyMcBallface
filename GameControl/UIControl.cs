@@ -12,8 +12,8 @@ public class UIControl : MonoBehaviour
     public Text bigAnnounceDisplay;
     public Text currentPlayerDisplay;
 
-    public GameObject nextLevelButton;
-    public GameObject restartButton;
+    private RectTransform _nextLevelButton;
+    private RectTransform _restartButton;
     public ParticleSystem scoreParticles;
     public ParticleSystem livesParticles;
 
@@ -41,8 +41,12 @@ public class UIControl : MonoBehaviour
 
     void Start()
     {
-        nextLevelButton.GetComponent<Text>().text = I18N.Translate(NEXT_LEVEL);
-        restartButton.GetComponent<Text>().text = I18N.Translate(RESTART_LEVEL);
+        _nextLevelButton = GameObject.Find("nextLevelButton").GetComponent<RectTransform>();
+        _restartButton = GameObject.Find("restartButton").GetComponent<RectTransform>();
+        
+        GameObject.Find("NextLevelButtonText").GetComponent<Text>().text = I18N.Translate(NEXT_LEVEL);
+        GameObject.Find("RestartButtonText").GetComponent<Text>().text = I18N.Translate(RESTART_LEVEL);
+        
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         Time.timeScale = 1; //if started from previous level 
 
@@ -54,7 +58,7 @@ public class UIControl : MonoBehaviour
         _currentPlayer = PlayerStats.instance.currentPlayer;
 
         currentPlayerDisplay.text = _currentPlayer;
-        StartCoroutine(DisplayText(SceneManager.GetActiveScene().name.ToUpper(), 3));
+        StartCoroutine(DisplayText(SceneManager.GetActiveScene().name, 3));
     }
 
 
@@ -117,7 +121,7 @@ public class UIControl : MonoBehaviour
                 $"{I18N.Translate(LEVEL_COMPLETED)}" +
                 $"\n\n{I18N.Translate(SCORE)}: {PlayerStats.instance.currentPlayerScore}";
 
-            nextLevelButton.SetActive(true);
+            Show(_nextLevelButton);
         }
 
         musicSource.enabled = false;
@@ -150,10 +154,14 @@ public class UIControl : MonoBehaviour
             PlayAudio(gameOverSound, gameSoundsSource);
             Time.timeScale = 0f;
             bigAnnounceDisplay.text = I18N.Translate(GAME_OVER);
-            restartButton.SetActive(true);
+            Show(_restartButton);
         }
     }
-
+    
+    private static void Show(RectTransform t)
+    {
+        t.localScale = new Vector3(1, 1, 1);
+    }
 
     public void ChangeScore(int delta)
     {
