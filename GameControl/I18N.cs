@@ -21,7 +21,9 @@ public static class I18N
         NEW_PLAYER,
         DELETE_PLAYER,
         BACK,
-        ENTER_NAME
+        ENTER_NAME,
+        NEXT_LEVEL,
+        RESTART_LEVEL
     }
 
     public static string Translate(Identifier identifier)
@@ -51,7 +53,9 @@ public static class I18N
                     {NEW_PLAYER, "Neuer Spieler"},
                     {DELETE_PLAYER, "Spieler löschen"},
                     {BACK, "Zurück"},
-                    {ENTER_NAME, "Namen eingeben"}
+                    {ENTER_NAME, "Namen eingeben"},
+                    {NEXT_LEVEL, "Nächstes Level"},
+                    {RESTART_LEVEL, "Level neustarten"}
                 }
             },
             {
@@ -73,7 +77,9 @@ public static class I18N
                     {NEW_PLAYER, "New player"},
                     {DELETE_PLAYER, "Delete player"},
                     {BACK, "Back"},
-                    {ENTER_NAME, "Enter name"}
+                    {ENTER_NAME, "Enter name"},
+                    {NEXT_LEVEL, "Next level"},
+                    {RESTART_LEVEL, "Restart level"}
                 }
             }
         };

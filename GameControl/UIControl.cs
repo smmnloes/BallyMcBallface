@@ -41,6 +41,8 @@ public class UIControl : MonoBehaviour
 
     void Start()
     {
+        nextLevelButton.GetComponent<Text>().text = I18N.Translate(NEXT_LEVEL);
+        restartButton.GetComponent<Text>().text = I18N.Translate(RESTART_LEVEL);
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         Time.timeScale = 1; //if started from previous level 
 
