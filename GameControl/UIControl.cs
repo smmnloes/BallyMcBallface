@@ -30,7 +30,7 @@ public class UIControl : MonoBehaviour
     public AudioClip extraLifeSound;
 
 
-    private string _currentPlayer;
+    private string _currentPlayerName;
     private List<string> _deathText;
 
     private GameObject[] _toReset;
@@ -55,9 +55,9 @@ public class UIControl : MonoBehaviour
 
         currentCheckpoint = 0;
 
-        _currentPlayer = PlayerStats.instance.currentPlayer;
+        _currentPlayerName = PlayerStats.instance.currentPlayer.name;
 
-        currentPlayerDisplay.text = _currentPlayer;
+        currentPlayerDisplay.text = _currentPlayerName;
         StartCoroutine(DisplayText(SceneManager.GetActiveScene().name, 3));
     }
 
@@ -111,11 +111,7 @@ public class UIControl : MonoBehaviour
         }
         else
         {
-            if (PlayerStats.instance.players[_currentPlayer] <= SceneManager.GetActiveScene().buildIndex + 1)
-            {
-                //update max. Level in PlayerStats
-                PlayerStats.instance.players[_currentPlayer] = SceneManager.GetActiveScene().buildIndex + 1;
-            }
+            PlayerStats.instance.UpdateCurrentPlayerMaxLevel(SceneManager.GetActiveScene().buildIndex + 1);
 
             bigAnnounceDisplay.text =
                 $"{I18N.Translate(LEVEL_COMPLETED)}" +

@@ -57,7 +57,8 @@ public class MainMenuControl : MonoBehaviour
 
     void Update()
     {
-        currentplayer = PlayerStats.instance.currentPlayer; //Get current player from PlayerStats and refresh display
+        currentplayer =
+            PlayerStats.instance.GetCurrentPlayerName();
         ShowCurrentPlayerLevel();
     }
 
@@ -99,7 +100,7 @@ public class MainMenuControl : MonoBehaviour
         _playerDropdown.RefreshShownValue();
         _playerDropdown.value = _playerDropdown.options.Capacity; //show next in list
 
-        PlayerStats.instance.players.Remove(playerToDelete);
+        PlayerStats.instance.DeletePlayer(playerToDelete);
         selectedLevel = 1;
     }
 
@@ -107,7 +108,7 @@ public class MainMenuControl : MonoBehaviour
     public void StartGame()
     {
         //Start-Button
-        if (currentplayer == "")
+        if (PlayerStats.instance.currentPlayer == null)
         {
             ShowPanel(_newPlayerPanel);
             GameObject.Find("InputPlayerOK").GetComponent<Button>().onClick.AddListener(AddPlayerAndStartGame);
@@ -115,7 +116,7 @@ public class MainMenuControl : MonoBehaviour
         }
         else
         {
-            PlayerStats.instance.initPlayerLivesAndScore();
+            PlayerStats.instance.InitPlayerLivesAndScore();
             SceneManager.LoadScene(selectedLevel);
         }
     }
@@ -124,7 +125,7 @@ public class MainMenuControl : MonoBehaviour
     {
         AddPlayer();
         currentplayer = _playerInputField.text;
-        PlayerStats.instance.currentPlayer = currentplayer;
+        PlayerStats.instance.SetCurrentPlayer(currentplayer);
         StartGame();
     }
 
@@ -141,10 +142,7 @@ public class MainMenuControl : MonoBehaviour
 
     public void AddPlayer()
     {
-        if (_playerInputField.text != "" && !PlayerStats.instance.players.ContainsKey(_playerInputField.text))
-        {
-            PlayerStats.instance.players.Add(_playerInputField.text, 1);
-        } //add player to Dictionary
+        PlayerStats.instance.AddPlayer(_playerInputField.text);
 
         selectedLevel = 1;
     }
@@ -161,7 +159,7 @@ public class MainMenuControl : MonoBehaviour
             currentplayer = "";
         }
 
-        PlayerStats.instance.currentPlayer = currentplayer;
+        PlayerStats.instance.SetCurrentPlayer(currentplayer);
         selectedLevel = 1; //Update PlayerStats
     }
 
@@ -171,7 +169,7 @@ public class MainMenuControl : MonoBehaviour
         if (currentPlayerView != null)
         {
             //show current player and selected level
-            if (string.IsNullOrEmpty(currentplayer))
+            if (PlayerStats.instance.currentPlayer == null)
                 currentPlayerView.text = I18N.Translate(CHOOSE_PLAYER_FIRST);
             else
                 currentPlayerView.text = $"{I18N.Translate(PLAYER)}: {currentplayer}\nLEVEL: {selectedLevel}";
@@ -182,10 +180,10 @@ public class MainMenuControl : MonoBehaviour
     {
         _levelDropdown.ClearOptions();
 
-        if (currentplayer != "")
+        if (PlayerStats.instance.currentPlayer != null)
         {
             //add possible levels for player to dropdown
-            int levelReached = PlayerStats.instance.players[currentplayer];
+            int levelReached = PlayerStats.instance.currentPlayer.maxLevel;
             for (int i = 1; i <= levelReached; i++)
             {
                 _levelDropdown.options.Add(new Dropdown.OptionData() {text = "Level " + i});
@@ -206,10 +204,10 @@ public class MainMenuControl : MonoBehaviour
     {
         _playerDropdown.ClearOptions();
 
-        foreach (string currentKey in PlayerStats.instance.players.Keys)
+        foreach (var player in PlayerStats.instance.players)
         {
             //get all players from Dictionary and put in dropdown
-            _playerDropdown.options.Add(new Dropdown.OptionData() {text = currentKey});
+            _playerDropdown.options.Add(new Dropdown.OptionData() {text = player.name});
         }
 
         _playerDropdown.value = _playerDropdown.options.Capacity; //show last player created

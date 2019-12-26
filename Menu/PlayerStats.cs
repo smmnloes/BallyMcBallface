@@ -4,14 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats instance; //static reference to self
 
-    public Dictionary<string, int> players;
+    public List<PlayerInfo> players;
 
-    public string currentPlayer = "";
+    public PlayerInfo currentPlayer;
 
     public int currentPlayerScore;
     public int currentPlayerLives;
@@ -60,7 +62,7 @@ public class PlayerStats : MonoBehaviour
         Save();
     }
 
-    public void initPlayerLivesAndScore()
+    public void InitPlayerLivesAndScore()
     {
         currentPlayerLives = PlayerStartLives;
         currentPlayerScore = 0;
@@ -71,7 +73,7 @@ public class PlayerStats : MonoBehaviour
         var bf = new BinaryFormatter();
         using (var file = File.Create(Application.persistentDataPath + SaveGameFileName))
         {
-            var pdv = new PlayerDataValues {players = players, currentPlayer = currentPlayer};
+            var pdv = new PlayerPersistency {players = players, currentPlayer = currentPlayer};
             bf.Serialize(file, pdv);
         }
     }
@@ -84,7 +86,7 @@ public class PlayerStats : MonoBehaviour
             using (var file = File.Open(Application.persistentDataPath + SaveGameFileName, FileMode.Open))
             {
                 var bf = new BinaryFormatter();
-                var pdv = (PlayerDataValues) bf.Deserialize(file);
+                var pdv = (PlayerPersistency) bf.Deserialize(file);
 
                 if (pdv.players != null)
                 {
@@ -94,22 +96,85 @@ public class PlayerStats : MonoBehaviour
                 else
                 {
                     //if file not found or file contains null-object: Create new Dictionary
-                    players = new Dictionary<string, int>();
+                    players = new List<PlayerInfo>();
                 }
             }
         }
         else
         {
-            players = new Dictionary<string, int>();
+            players = new List<PlayerInfo>();
         }
     }
-}
 
-[Serializable]
-class PlayerDataValues
-{
-    //wrapper for saving data
+    public void UpdateCurrentPlayerMaxLevel(int newMaxLevel)
+    {
+        if (currentPlayer.maxLevel <= newMaxLevel)
+        {
+            currentPlayer.maxLevel = newMaxLevel;
+        }
+    }
 
-    public Dictionary<string, int> players;
-    public string currentPlayer;
+    public string GetCurrentPlayerName()
+    {
+        return currentPlayer == null ? "" : currentPlayer.name;
+    }
+
+    public void AddPlayer(string name)
+    {
+        if (name != "" && !_playerExists(name))
+        {
+            players.Add(new PlayerInfo() {highScore = 0, maxLevel = 1, name = name});
+        } //add player to Dictionary
+    }
+
+    public void DeletePlayer(string name)
+    {
+        players.Remove(_getPlayerByName(name));
+    }
+
+    public void SetCurrentPlayer(string name)
+    {
+        currentPlayer = name == "" ? null : _getPlayerByName(name);
+    }
+
+    private PlayerInfo _getPlayerByName(string name)
+    {
+        foreach (var player in players)
+        {
+            if (player.name == name)
+            {
+                return player;
+            }
+        }
+
+        return null;
+    }
+
+    private bool _playerExists(string name)
+    {
+        foreach (var player in players)
+        {
+            if (player.name == name)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    [Serializable]
+    class PlayerPersistency
+    {
+        public List<PlayerInfo> players;
+        public PlayerInfo currentPlayer;
+    }
+
+    [Serializable]
+    public class PlayerInfo
+    {
+        public string name;
+        public int maxLevel;
+        public int highScore;
+    }
 }
