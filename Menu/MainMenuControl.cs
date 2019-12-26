@@ -123,7 +123,7 @@ public class MainMenuControl : MonoBehaviour
     public void AddPlayerAndStartGame()
     {
         AddPlayer();
-        currentplayer = _playerInputField.text.ToUpper();
+        currentplayer = _playerInputField.text;
         PlayerStats.instance.currentPlayer = currentplayer;
         StartGame();
     }
@@ -141,9 +141,9 @@ public class MainMenuControl : MonoBehaviour
 
     public void AddPlayer()
     {
-        if (_playerInputField.text != "" && !PlayerStats.instance.players.ContainsKey(_playerInputField.text.ToUpper()))
+        if (_playerInputField.text != "" && !PlayerStats.instance.players.ContainsKey(_playerInputField.text))
         {
-            PlayerStats.instance.players.Add(_playerInputField.text.ToUpper(), 1);
+            PlayerStats.instance.players.Add(_playerInputField.text, 1);
         } //add player to Dictionary
 
         selectedLevel = 1;
@@ -188,7 +188,7 @@ public class MainMenuControl : MonoBehaviour
             int levelReached = PlayerStats.instance.players[currentplayer];
             for (int i = 1; i <= levelReached; i++)
             {
-                _levelDropdown.options.Add(new Dropdown.OptionData() {text = "LEVEL " + i});
+                _levelDropdown.options.Add(new Dropdown.OptionData() {text = "Level " + i});
             }
 
             _levelDropdown.RefreshShownValue();
