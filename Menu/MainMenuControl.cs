@@ -114,8 +114,7 @@ public class MainMenuControl : MonoBehaviour
         }
         else
         {
-            PlayerStats.instance.currentPlayerLives = 3;
-            PlayerStats.instance.currentPlayerScore = 0;
+            PlayerStats.instance.initPlayerLivesAndScore();
             SceneManager.LoadScene(selectedLevel);
         }
     }

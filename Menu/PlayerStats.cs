@@ -60,7 +60,12 @@ public class PlayerStats : MonoBehaviour
         Save();
     }
 
-
+    public void initPlayerLivesAndScore()
+    {
+        currentPlayerLives = PlayerStartLives;
+        currentPlayerScore = 0;
+    }
+    
     private void Save()
     {
         var bf = new BinaryFormatter();
