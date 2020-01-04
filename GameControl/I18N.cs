@@ -23,7 +23,8 @@ public static class I18N
         BACK,
         ENTER_NAME,
         NEXT_LEVEL,
-        RESTART_LEVEL
+        RESTART_LEVEL,
+        TOTAL_SCORE
     }
 
     public static string Translate(Identifier identifier)
@@ -55,7 +56,8 @@ public static class I18N
                     {BACK, "Zurück"},
                     {ENTER_NAME, "Namen eingeben"},
                     {NEXT_LEVEL, "Nächstes Level"},
-                    {RESTART_LEVEL, "Level neustarten"}
+                    {RESTART_LEVEL, "Level neustarten"},
+                    {TOTAL_SCORE, "Gesamtpunktzahl"}
                 }
             },
             {
@@ -79,7 +81,8 @@ public static class I18N
                     {BACK, "Back"},
                     {ENTER_NAME, "Enter name"},
                     {NEXT_LEVEL, "Next level"},
-                    {RESTART_LEVEL, "Restart level"}
+                    {RESTART_LEVEL, "Restart level"},
+                    {TOTAL_SCORE, "Total score"}
                 }
             }
         };

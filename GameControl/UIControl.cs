@@ -108,7 +108,7 @@ public class UIControl : MonoBehaviour
             //Last level?
             bigAnnounceDisplay.text =
                 $"{I18N.Translate(CONGRATULATIONS)}\n\n{I18N.Translate(GAME_COMPLETED)}\n\n" +
-                $"{I18N.Translate(SCORE)}: {PlayerStats.instance.currentPlayerScore}";
+                $"{I18N.Translate(TOTAL_SCORE)}: {PlayerStats.instance.currentPlayerScore}";
         }
         else
         {
@@ -116,7 +116,7 @@ public class UIControl : MonoBehaviour
 
             bigAnnounceDisplay.text =
                 $"{I18N.Translate(LEVEL_COMPLETED)}" +
-                $"\n\n{I18N.Translate(SCORE)}: {PlayerStats.instance.currentPlayerScore}";
+                $"\n\n+100 {I18N.Translate(SCORE)}";
 
             Show(_nextLevelButton);
         }
