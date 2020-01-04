@@ -14,6 +14,7 @@ public class UIControl : MonoBehaviour
 
     private RectTransform _nextLevelButton;
     private RectTransform _restartButton;
+    private RectTransform _backToMenuButton;
     public ParticleSystem scoreParticles;
     public ParticleSystem livesParticles;
 
@@ -43,9 +44,12 @@ public class UIControl : MonoBehaviour
     {
         _nextLevelButton = GameObject.Find("nextLevelButton").GetComponent<RectTransform>();
         _restartButton = GameObject.Find("restartButton").GetComponent<RectTransform>();
+        _backToMenuButton = GameObject.Find("backToMenuButton").GetComponent<RectTransform>();
         
         GameObject.Find("NextLevelButtonText").GetComponent<Text>().text = I18N.Translate(NEXT_LEVEL);
         GameObject.Find("RestartButtonText").GetComponent<Text>().text = I18N.Translate(RESTART_LEVEL);
+        GameObject.Find("BackToMenuButtonText").GetComponent<Text>().text = I18N.Translate(BACK_TO_MENU);
+
         
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         Time.timeScale = 1; //if started from previous level 
@@ -107,8 +111,9 @@ public class UIControl : MonoBehaviour
         {
             //Last level?
             bigAnnounceDisplay.text =
-                $"{I18N.Translate(CONGRATULATIONS)}\n\n{I18N.Translate(GAME_COMPLETED)}\n\n" +
+                $"{I18N.Translate(CONGRATULATIONS)}!\n{I18N.Translate(GAME_COMPLETED)}\n" +
                 $"{I18N.Translate(TOTAL_SCORE)}: {PlayerStats.instance.currentPlayerScore}";
+            Show(_backToMenuButton);
         }
         else
         {
@@ -131,6 +136,11 @@ public class UIControl : MonoBehaviour
     public void LoadNextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
 
