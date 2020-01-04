@@ -45,12 +45,12 @@ public class UIControl : MonoBehaviour
         _nextLevelButton = GameObject.Find("nextLevelButton").GetComponent<RectTransform>();
         _restartButton = GameObject.Find("restartButton").GetComponent<RectTransform>();
         _backToMenuButton = GameObject.Find("backToMenuButton").GetComponent<RectTransform>();
-        
+
         GameObject.Find("NextLevelButtonText").GetComponent<Text>().text = I18N.Translate(NEXT_LEVEL);
         GameObject.Find("RestartButtonText").GetComponent<Text>().text = I18N.Translate(RESTART_LEVEL);
         GameObject.Find("BackToMenuButtonText").GetComponent<Text>().text = I18N.Translate(BACK_TO_MENU);
 
-        
+
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         Time.timeScale = 1; //if started from previous level 
 
@@ -68,7 +68,6 @@ public class UIControl : MonoBehaviour
 
     void Update()
     {
-        
         // DEBUG INPUT
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -106,13 +105,21 @@ public class UIControl : MonoBehaviour
     public void LevelCompleted()
     {
         ChangeScore(LevelCompletedBonusScore);
+        bool newHighScore = PlayerStats.instance.currentPlayerScore > PlayerStats.instance.currentPlayer.highScore;
         PlayerStats.instance.UpdateCurrentPlayerHighScore();
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
         {
             //Last level?
-            bigAnnounceDisplay.text =
-                $"{I18N.Translate(CONGRATULATIONS)}!\n{I18N.Translate(GAME_COMPLETED)}\n" +
+            string text =
+                $"{I18N.Translate(GAME_COMPLETED)}\n" +
                 $"{I18N.Translate(TOTAL_SCORE)}: {PlayerStats.instance.currentPlayerScore}";
+
+            if (newHighScore)
+            {
+                text += $"\n{I18N.Translate(NEW_HIGHSCORE)}!";
+            }
+
+            bigAnnounceDisplay.text = text;
             Show(_backToMenuButton);
         }
         else
@@ -164,7 +171,7 @@ public class UIControl : MonoBehaviour
             Show(_restartButton);
         }
     }
-    
+
     private static void Show(RectTransform t)
     {
         t.localScale = new Vector3(1, 1, 1);

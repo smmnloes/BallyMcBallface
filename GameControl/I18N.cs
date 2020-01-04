@@ -25,7 +25,8 @@ public static class I18N
         NEXT_LEVEL,
         RESTART_LEVEL,
         TOTAL_SCORE,
-        BACK_TO_MENU
+        BACK_TO_MENU,
+        NEW_HIGHSCORE
     }
 
     public static string Translate(Identifier identifier)
@@ -59,7 +60,8 @@ public static class I18N
                     {NEXT_LEVEL, "Nächstes Level"},
                     {RESTART_LEVEL, "Level neustarten"},
                     {TOTAL_SCORE, "Gesamtpunktzahl"},
-                    {BACK_TO_MENU, "Zum Hauptmenü"}
+                    {BACK_TO_MENU, "Zum Hauptmenü"},
+                    {NEW_HIGHSCORE, "Neuer Highscore"}
                 }
             },
             {
@@ -85,7 +87,8 @@ public static class I18N
                     {NEXT_LEVEL, "Next level"},
                     {RESTART_LEVEL, "Restart level"},
                     {TOTAL_SCORE, "Total score"},
-                    {BACK_TO_MENU, "Back to main menu"}
+                    {BACK_TO_MENU, "Back to main menu"},
+                    {NEW_HIGHSCORE, "New highscore"}
                 }
             }
         };
