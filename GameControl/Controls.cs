@@ -10,6 +10,11 @@ public class Controls : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            //Go to menu (Android and Windows)
+            SceneManager.LoadScene(0);
+        }
 #if UNITY_STANDALONE || UNITY_EDITOR
         if (Input.GetKey(StandaloneRightControl))
             Globals.playerControl.MoveRight();
@@ -21,12 +26,7 @@ public class Controls : MonoBehaviour
 
         if (Input.GetKey(StandaloneJumpControl))
             Globals.playerControl.Jump();
-
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            //Go to menu on Key
-            SceneManager.LoadScene(0);
-        }
+        
         // DEBUG
         if (Input.GetKey(KeyCode.K))
             Globals.playerControl.Death();
