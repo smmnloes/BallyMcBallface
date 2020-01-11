@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Renderer))]
 public class ParallaxScript : MonoBehaviour
 {
+    public bool selfScrolling;
+
     private Renderer _layer1Renderer;
     private Renderer _layer2Renderer;
     private Renderer _layer3Renderer;
@@ -18,6 +20,8 @@ public class ParallaxScript : MonoBehaviour
     private readonly float _speedFactorLayer4 = 1;
     private readonly float _speedFactorLayer5 = 0.5f;
 
+    private readonly float selfScrollingSpeed = 3;
+
     void Start()
     {
         _layer1Renderer = GameObject.Find("BackgroundLayer1").GetComponent<Renderer>();
@@ -30,7 +34,7 @@ public class ParallaxScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        var playerSpeed = Globals.ballRigid.velocity.x;
+        var playerSpeed = selfScrolling ? selfScrollingSpeed : Globals.ballRigid.velocity.x;
 
         _layer1Renderer.material.mainTextureOffset +=
             new Vector2(playerSpeed * _speedFactorLayer1 * Time.deltaTime / 1000, 0);

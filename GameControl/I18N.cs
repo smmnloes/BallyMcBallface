@@ -26,7 +26,9 @@ public static class I18N
         RESTART_LEVEL,
         TOTAL_SCORE,
         BACK_TO_MENU,
-        NEW_HIGHSCORE
+        NEW_HIGHSCORE,
+        DONATE,
+        DONATE_PLEASE
     }
 
     public static string Translate(Identifier identifier)
@@ -61,7 +63,9 @@ public static class I18N
                     {RESTART_LEVEL, "Level neustarten"},
                     {TOTAL_SCORE, "Gesamtpunktzahl"},
                     {BACK_TO_MENU, "Zum Hauptmenü"},
-                    {NEW_HIGHSCORE, "Neuer Highscore"}
+                    {NEW_HIGHSCORE, "Neuer Highscore"},
+                    {DONATE, "Spenden"},
+                    {DONATE_PLEASE, "Spiele zu entwickeln macht mir viel Spaß, aber es ist auch harte Arbeit."}
                 }
             },
             {
@@ -88,7 +92,9 @@ public static class I18N
                     {RESTART_LEVEL, "Restart level"},
                     {TOTAL_SCORE, "Total score"},
                     {BACK_TO_MENU, "Back to main menu"},
-                    {NEW_HIGHSCORE, "New highscore"}
+                    {NEW_HIGHSCORE, "New highscore"},
+                    {DONATE, "Donate"},
+                    {DONATE_PLEASE, "Making games is fun, but it is also hard work."}
                 }
             }
         };

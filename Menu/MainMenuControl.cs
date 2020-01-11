@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,11 +20,18 @@ public class MainMenuControl : MonoBehaviour
     private RectTransform _newPlayerPanel;
     private RectTransform _levelSelectPanel;
     private RectTransform _highScoresPanel;
+    private RectTransform _donatePanel;
 
     private RectTransform[] _panels;
 
     private Text _highScorePlayersText;
     private Text _highScoreScoresText;
+
+    private void Awake()
+    {
+        Screen.orientation = ScreenOrientation.Portrait;
+    }
+
 
     void Start()
     {
@@ -36,19 +44,17 @@ public class MainMenuControl : MonoBehaviour
         _newPlayerPanel = GameObject.Find("NewPlayerPanel").GetComponent<RectTransform>();
         _levelSelectPanel = GameObject.Find("LevelSelectPanel").GetComponent<RectTransform>();
         _highScoresPanel = GameObject.Find("HighscorePanel").GetComponent<RectTransform>();
-
+        _donatePanel = GameObject.Find("DonatePanel").GetComponent<RectTransform>();
+        
         _highScorePlayersText = GameObject.Find("HighScorePlayersText").GetComponent<Text>();
         _highScoreScoresText = GameObject.Find("HighScoreScoresText").GetComponent<Text>();
 
 
         _panels = new[]
         {
-            _mainPanel, _levelSelectPanel, _newPlayerPanel, _playerSelectPanel, _highScoresPanel
+            _mainPanel, _levelSelectPanel, _newPlayerPanel, _playerSelectPanel, _highScoresPanel, _donatePanel
         };
-
-        ShowPanel(_mainPanel);
-
-        Screen.orientation = ScreenOrientation.Portrait;
+        
         GameObject.Find("StartGameButtonText").GetComponent<Text>().text = I18N.Translate(START_GAME);
         GameObject.Find("SelectPlayerButtonText").GetComponent<Text>().text = I18N.Translate(SELECT_PLAYER);
         GameObject.Find("SelectLevelButtonText").GetComponent<Text>().text = I18N.Translate(SELECT_LEVEL);
@@ -57,12 +63,18 @@ public class MainMenuControl : MonoBehaviour
         GameObject.Find("InputPlayerBackButtonText").GetComponent<Text>().text = I18N.Translate(BACK);
         GameObject.Find("InputPlayerFieldPlaceHolder").GetComponent<Text>().text = I18N.Translate(ENTER_NAME);
         GameObject.Find("HighScoresBackButtonText").GetComponent<Text>().text = I18N.Translate(BACK);
+        GameObject.Find("DonateButtonText").GetComponent<Text>().text = I18N.Translate(DONATE);
+        GameObject.Find("DonatePleaseText").GetComponent<Text>().text = I18N.Translate(DONATE_PLEASE);
+        GameObject.Find("DonateBackButtonText").GetComponent<Text>().text = I18N.Translate(BACK);
+
 
         var quitButton = GameObject.Find("QuitButtonText");
         if (quitButton != null)
         {
             quitButton.GetComponent<Text>().text = I18N.Translate(QUIT_GAME);
         }
+        
+        ShowPanel(_mainPanel);
     }
 
     void Update()
