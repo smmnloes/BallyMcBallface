@@ -65,7 +65,11 @@ public static class I18N
                     {BACK_TO_MENU, "Zum Hauptmenü"},
                     {NEW_HIGHSCORE, "Neuer Highscore"},
                     {DONATE, "Spenden"},
-                    {DONATE_PLEASE, "Spiele zu entwickeln macht mir viel Spaß, aber es ist auch harte Arbeit."}
+                    {DONATE_PLEASE, "Spiele zu entwickeln macht mir viel Spaß, aber es ist auch harte Arbeit.\n" +
+                                    "Wenn dir mein Spiel gefällt" +
+                                    " und du mich unterstützen willst, " +
+                                    "würde ich mich über eine kleine Spende sehr freuen.\nEs würde mir auch einen Anreiz geben, " +
+                                    "neue Level und anderen Content zu erstellen!\n\nVielen Dank!"}
                 }
             },
             {
@@ -94,7 +98,10 @@ public static class I18N
                     {BACK_TO_MENU, "Back to main menu"},
                     {NEW_HIGHSCORE, "New highscore"},
                     {DONATE, "Donate"},
-                    {DONATE_PLEASE, "Making games is fun, but it is also hard work."}
+                    {DONATE_PLEASE, "I love developing games, but it is also hard work.\n" +
+                                    "If you like my game and want to support me, I would appreciate a small donation.\n" +
+                                    "It would also give me incentive to create more levels and content for you to enjoy!\n\n" +
+                                    "Thank you very much!"}
                 }
             }
         };
