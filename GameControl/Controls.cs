@@ -15,6 +15,8 @@ public class Controls : MonoBehaviour
             //Go to menu (Android and Windows)
             SceneManager.LoadScene(0);
         }
+        
+        
 #if UNITY_STANDALONE || UNITY_EDITOR
         if (Input.GetKey(StandaloneRightControl))
             Globals.playerControl.MoveRight();
@@ -27,9 +29,33 @@ public class Controls : MonoBehaviour
         if (Input.GetKey(StandaloneJumpControl))
             Globals.playerControl.Jump();
         
-        // DEBUG
-        if (Input.GetKey(KeyCode.K))
-            Globals.playerControl.Death();
+  
+        if (Debug.isDebugBuild)
+        {
+            // DEBUG INPUT
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                Globals.uiStats.ChangeScore(100);
+            }
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                Globals.uiStats.RestartLevel();
+            }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                Globals.uiStats.ChangeLives(1);
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Globals.uiStats.LevelCompleted();
+            }
+            
+            if (Input.GetKey(KeyCode.K))
+                Globals.playerControl.Death();
+        }
 
 #endif
 
@@ -49,10 +75,16 @@ public class Controls : MonoBehaviour
             case 2:
                 Globals.playerControl.Jump();
                 break;
-            case 3:
-                //DEBUG
+        }
+
+        
+        // DEBUG
+        if (Debug.isDebugBuild)
+        {
+            if (Input.touchCount == 3)
+            {
                 Globals.uiStats.ChangeLives(1);
-                break;
+            }
         }
 #endif
     }

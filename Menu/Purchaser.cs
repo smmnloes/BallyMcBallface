@@ -23,10 +23,10 @@ public class Purchaser : MonoBehaviour, IStoreListener
     // when defining the Product Identifiers on the store. Except, for illustration purposes, the 
     // kProductIDSubscription - it has custom Apple and Google identifiers. We declare their store-
     // specific mapping to Unity Purchasing's AddProduct, below.
-    public static string fifyCentDonation = "fify_cent_donation";
     public static string oneEuroDonation = "one_euro_donation";
     public static string threeEuroDonation = "three_euro_donation";
     public static string fiveEuroDonation = "five_euro_donation";
+    public static string tenEuroDonation = "ten_euro_donation";
 
 
     void Start()
@@ -53,10 +53,11 @@ public class Purchaser : MonoBehaviour, IStoreListener
 
         // Add a product to sell / restore by way of its identifier, associating the general identifier
         // with its store-specific identifiers.
-        builder.AddProduct(fifyCentDonation, ProductType.Consumable);
+
         builder.AddProduct(oneEuroDonation, ProductType.Consumable);
         builder.AddProduct(threeEuroDonation, ProductType.Consumable);
         builder.AddProduct(fiveEuroDonation, ProductType.Consumable);
+        builder.AddProduct(tenEuroDonation, ProductType.Consumable);
 
 
         // Kick off the remainder of the set-up with an asynchrounous call, passing the configuration 
@@ -71,13 +72,6 @@ public class Purchaser : MonoBehaviour, IStoreListener
         return m_StoreController != null && m_StoreExtensionProvider != null;
     }
 
-
-    public void BuyFiftyCentDonation()
-    {
-        // Buy the consumable product using its general identifier. Expect a response either 
-        // through ProcessPurchase or OnPurchaseFailed asynchronously.
-        BuyProductID(fifyCentDonation);
-    }
 
     public void BuyOneEuroDonation()
     {
@@ -94,6 +88,12 @@ public class Purchaser : MonoBehaviour, IStoreListener
         BuyProductID(fiveEuroDonation);
     }
 
+    public void BuyTenEuroDonation()
+    {
+        // Buy the consumable product using its general identifier. Expect a response either 
+        // through ProcessPurchase or OnPurchaseFailed asynchronously.
+        BuyProductID(tenEuroDonation);
+    }
 
     void BuyProductID(string productId)
     {

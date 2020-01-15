@@ -68,27 +68,7 @@ public class UIControl : MonoBehaviour
 
     void Update()
     {
-        // DEBUG INPUT
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            ChangeScore(100);
-        }
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            RestartLevel();
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            ChangeLives(1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            LevelCompleted();
-        }
-
+        
         //Display score & lives
         scoreDisplay.text = PlayerStats.instance.currentPlayerScore.ToString();
         livesDisplay.text = PlayerStats.instance.currentPlayerLives.ToString();

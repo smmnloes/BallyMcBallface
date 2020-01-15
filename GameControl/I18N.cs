@@ -95,7 +95,7 @@ public static class I18N
                     {NEXT_LEVEL, "Next level"},
                     {RESTART_LEVEL, "Restart level"},
                     {TOTAL_SCORE, "Total score"},
-                    {BACK_TO_MENU, "Back to main menu"},
+                    {BACK_TO_MENU, "Back to menu"},
                     {NEW_HIGHSCORE, "New highscore"},
                     {DONATE, "Donate"},
                     {DONATE_PLEASE, "I love developing games, but it is also hard work.\n" +

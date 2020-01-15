@@ -198,7 +198,7 @@ public class MainMenuControl : MonoBehaviour
             if (PlayerStats.instance.currentPlayer == null)
                 currentPlayerView.text = I18N.Translate(CHOOSE_PLAYER_FIRST);
             else
-                currentPlayerView.text = $"{I18N.Translate(PLAYER)}: {currentplayer}\nLEVEL: {selectedLevel}";
+                currentPlayerView.text = $"{I18N.Translate(PLAYER)}: {currentplayer}\nLevel: {selectedLevel}";
         }
     }
 
