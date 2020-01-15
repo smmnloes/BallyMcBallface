@@ -130,7 +130,7 @@ public class MainMenuControl : MonoBehaviour
     public void StartGame()
     {
         //Start-Button
-        if (PlayerStats.instance.currentPlayer == null)
+        if (currentplayer == "")
         {
             ShowPanel(_newPlayerPanel);
             GameObject.Find("InputPlayerOK").GetComponent<Button>().onClick.AddListener(AddPlayerAndStartGame);
@@ -195,7 +195,7 @@ public class MainMenuControl : MonoBehaviour
         if (currentPlayerView != null)
         {
             //show current player and selected level
-            if (PlayerStats.instance.currentPlayer == null)
+            if (currentplayer == "")
                 currentPlayerView.text = I18N.Translate(CHOOSE_PLAYER_FIRST);
             else
                 currentPlayerView.text = $"{I18N.Translate(PLAYER)}: {currentplayer}\nLevel: {selectedLevel}";

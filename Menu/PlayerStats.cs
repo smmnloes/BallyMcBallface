@@ -78,6 +78,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Load()
     {
+        print(Application.persistentDataPath);
         if (File.Exists(Application.persistentDataPath + SaveGameFileName))
 
         {
