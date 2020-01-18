@@ -28,7 +28,8 @@ public static class I18N
         BACK_TO_MENU,
         NEW_HIGHSCORE,
         DONATE,
-        DONATE_PLEASE
+        DONATE_PLEASE,
+        TOOLTIP_CONTROLS
     }
 
     public static string Translate(Identifier identifier)
@@ -69,7 +70,8 @@ public static class I18N
                                     "Wenn dir mein Spiel gefällt" +
                                     " und du mich unterstützen willst, " +
                                     "würde ich mich über eine kleine Spende sehr freuen.\nEs würde mir auch einen Anreiz geben, " +
-                                    "neue Level und anderen Content zu erstellen!\n\nVielen Dank!"}
+                                    "neue Level und anderen Content zu erstellen!\n\nVielen Dank!"},
+                    {TOOLTIP_CONTROLS, "Dies ist der controls tooltip"}
                 }
             },
             {
@@ -101,7 +103,8 @@ public static class I18N
                     {DONATE_PLEASE, "I love developing games, but it is also hard work.\n" +
                                     "If you like my game and want to support me, I would appreciate a small donation.\n" +
                                     "It would also give me incentive to create more levels and content for you to enjoy!\n\n" +
-                                    "Thank you very much!"}
+                                    "Thank you very much!"},
+                    {TOOLTIP_CONTROLS, "This is the controls tooltip"}
                 }
             }
         };

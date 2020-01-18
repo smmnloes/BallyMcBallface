@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -78,7 +79,6 @@ public class PlayerStats : MonoBehaviour
 
     private void Load()
     {
-        print(Application.persistentDataPath);
         if (File.Exists(Application.persistentDataPath + SaveGameFileName))
 
         {
@@ -144,6 +144,27 @@ public class PlayerStats : MonoBehaviour
         currentPlayer = name == "" ? null : _getPlayerByName(name);
     }
 
+    public bool GetToolTipTriggered(string name)
+    {
+        if (currentPlayer.activatedCheckpoints == null)
+        {
+            currentPlayer.activatedCheckpoints = new List<string>();
+        }
+        return currentPlayer.activatedCheckpoints.Contains(name);
+    }
+
+    public void SetToolTipTriggered(string name)
+    {
+        if (currentPlayer.activatedCheckpoints == null)
+        {
+            currentPlayer.activatedCheckpoints = new List<string>();
+        }
+        if (!currentPlayer.activatedCheckpoints.Contains(name))
+        {
+            currentPlayer.activatedCheckpoints.Add(name);
+        }
+    }
+
     private PlayerInfo _getPlayerByName(string name)
     {
         foreach (var player in players)
@@ -183,5 +204,7 @@ public class PlayerStats : MonoBehaviour
         public string name;
         public int maxLevel;
         public int highScore;
+
+        [OptionalField] public List<string> activatedCheckpoints;
     }
 }

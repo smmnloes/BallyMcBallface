@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,9 @@ public class UIControl : MonoBehaviour
     public Text scoreDisplay;
     public Text bigAnnounceDisplay;
     public Text currentPlayerDisplay;
+
+    private GameObject _toolTipDisplay;
+    private Text _toolTipDisplayText;
 
     private RectTransform _nextLevelButton;
     private RectTransform _restartButton;
@@ -45,12 +49,13 @@ public class UIControl : MonoBehaviour
         _nextLevelButton = GameObject.Find("nextLevelButton").GetComponent<RectTransform>();
         _restartButton = GameObject.Find("restartButton").GetComponent<RectTransform>();
         _backToMenuButton = GameObject.Find("backToMenuButton").GetComponent<RectTransform>();
-
+        _toolTipDisplay = GameObject.Find("toolTipDisplay");
+        _toolTipDisplayText = GameObject.Find("toolTipText").GetComponent<Text>();
+        
         GameObject.Find("NextLevelButtonText").GetComponent<Text>().text = I18N.Translate(NEXT_LEVEL);
         GameObject.Find("RestartButtonText").GetComponent<Text>().text = I18N.Translate(RESTART_LEVEL);
         GameObject.Find("BackToMenuButtonText").GetComponent<Text>().text = I18N.Translate(BACK_TO_MENU);
-
-
+        
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         Time.timeScale = 1; //if started from previous level 
 
@@ -226,5 +231,19 @@ public class UIControl : MonoBehaviour
         bigAnnounceDisplay.text = text;
         yield return new WaitForSecondsRealtime(timeToDisplay);
         bigAnnounceDisplay.text = "";
+    }
+
+    public void HideTooltip()
+    {
+        _toolTipDisplay.GetComponent<RectTransform>().localScale = new Vector3(0,0,0);
+        Time.timeScale = 1;
+    }
+
+    public void ShowTooltip(GameObject toolTipTrigger)
+    {
+        Time.timeScale = 0;
+        _toolTipDisplay.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
+        Enum.TryParse(toolTipTrigger.name, false, out I18N.Identifier identifier);
+        _toolTipDisplayText.text = I18N.Translate(identifier);
     }
 }
