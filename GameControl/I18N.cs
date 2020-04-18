@@ -71,7 +71,8 @@ public static class I18N
                                     " und du mich unterstützen willst, " +
                                     "würde ich mich über eine kleine Spende sehr freuen.\nEs würde mir auch einen Anreiz geben, " +
                                     "neue Level und anderen Content zu erstellen!\n\nVielen Dank!"},
-                    {TOOLTIP_CONTROLS, "Dies ist der controls tooltip"}
+                    {TOOLTIP_CONTROLS, "Los geht's!\nUm in eine Richtung zu rollen, drücke auf die entsprechende Displayseite.\n" +
+                                       "Um zu springen, drücke auf beide gleichzeitig!"}
                 }
             },
             {
@@ -104,7 +105,8 @@ public static class I18N
                                     "If you like my game and want to support me, I would appreciate a small donation.\n" +
                                     "It would also give me incentive to create more levels and content for you to enjoy!\n\n" +
                                     "Thank you very much!"},
-                    {TOOLTIP_CONTROLS, "This is the controls tooltip"}
+                    {TOOLTIP_CONTROLS, "Here we go!\nPressing on the left or right portion of the display will move bally to that side.\n" +
+                                       "Press both at the same time to jump!"}
                 }
             }
         };
